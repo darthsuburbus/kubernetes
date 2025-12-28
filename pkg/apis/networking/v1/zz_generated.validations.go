@@ -98,7 +98,7 @@ func Validate_NetworkPolicy(ctx context.Context, op operation.Operation, fldPath
 				return nil
 			}
 			// call the type's validation function
-			errs = append(errs, Validate_NetworkPolicySpec(ctx, op, fldPath, obj, oldObj)...)
+			errs = append(errs, networkingv1.Validate_NetworkPolicySpec(ctx, op, fldPath, obj, oldObj)...)
 			return
 		}(fldPath.Child("spec"), &obj.Spec, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicy) *networkingv1.NetworkPolicySpec { return &oldObj.Spec }), oldObj != nil)...)
 
@@ -118,7 +118,7 @@ func Validate_NetworkPolicyEgressRule(ctx context.Context, op operation.Operatio
 				return nil
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_NetworkPolicyPeer)...)
+			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, networkingv1.Validate_NetworkPolicyPeer)...)
 			return
 		}(fldPath.Child("to"), obj.To, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicyEgressRule) []networkingv1.NetworkPolicyPeer { return oldObj.To }), oldObj != nil)...)
 
@@ -138,7 +138,7 @@ func Validate_NetworkPolicyIngressRule(ctx context.Context, op operation.Operati
 				return nil
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_NetworkPolicyPeer)...)
+			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, networkingv1.Validate_NetworkPolicyPeer)...)
 			return
 		}(fldPath.Child("from"), obj.From, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicyIngressRule) []networkingv1.NetworkPolicyPeer {
 			return oldObj.From
@@ -161,7 +161,7 @@ func Validate_NetworkPolicyList(ctx context.Context, op operation.Operation, fld
 				return nil
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_NetworkPolicy)...)
+			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, networkingv1.Validate_NetworkPolicy)...)
 			return
 		}(fldPath.Child("items"), obj.Items, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicyList) []networkingv1.NetworkPolicy { return oldObj.Items }), oldObj != nil)...)
 
@@ -182,7 +182,7 @@ func Validate_NetworkPolicyPeer(ctx context.Context, op operation.Operation, fld
 				return nil
 			}
 			// call the type's validation function
-			errs = append(errs, Validate_IPBlock(ctx, op, fldPath, obj, oldObj)...)
+			errs = append(errs, networkingv1.Validate_IPBlock(ctx, op, fldPath, obj, oldObj)...)
 			return
 		}(fldPath.Child("ipBlock"), obj.IPBlock, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicyPeer) *networkingv1.IPBlock { return oldObj.IPBlock }), oldObj != nil)...)
 
@@ -202,7 +202,7 @@ func Validate_NetworkPolicySpec(ctx context.Context, op operation.Operation, fld
 				return nil
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_NetworkPolicyIngressRule)...)
+			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, networkingv1.Validate_NetworkPolicyIngressRule)...)
 			return
 		}(fldPath.Child("ingress"), obj.Ingress, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicySpec) []networkingv1.NetworkPolicyIngressRule {
 			return oldObj.Ingress
@@ -216,7 +216,7 @@ func Validate_NetworkPolicySpec(ctx context.Context, op operation.Operation, fld
 				return nil
 			}
 			// iterate the list and call the type's validation function
-			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, Validate_NetworkPolicyEgressRule)...)
+			errs = append(errs, validate.EachSliceVal(ctx, op, fldPath, obj, oldObj, nil, nil, networkingv1.Validate_NetworkPolicyEgressRule)...)
 			return
 		}(fldPath.Child("egress"), obj.Egress, safe.Field(oldObj, func(oldObj *networkingv1.NetworkPolicySpec) []networkingv1.NetworkPolicyEgressRule {
 			return oldObj.Egress
