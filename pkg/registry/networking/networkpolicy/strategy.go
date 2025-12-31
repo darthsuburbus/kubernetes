@@ -87,11 +87,11 @@ func (networkPolicyStrategy) AllowCreateOnUpdate() bool {
 
 // ValidateUpdate is the default update validation for an end user.
 func (networkPolicyStrategy) ValidateUpdate(ctx context.Context, obj, old runtime.Object) field.ErrorList {
-	opts := validation.ValidationOptionsForNetworking(obj.(*networking.NetworkPolicy), old.(*networking.NetworkPolicy))
-	validationErrorList := validation.ValidateNetworkPolicy(obj.(*networking.NetworkPolicy), opts)
-	updateErrorList := validation.ValidateNetworkPolicyUpdate(obj.(*networking.NetworkPolicy), old.(*networking.NetworkPolicy), opts)
-	validationErrList := rest.ValidateDeclarativelyWithMigrationChecks(ctx, legacyscheme.Scheme, obj.(*networking.NetworkPolicy), old.(*networking.NetworkPolicy), validationErrorList, operation.Update)
-	return append(validationErrList, updateErrorList...)
+	newNP := obj.(*networking.NetworkPolicy)
+	oldNP := old.(*networking.NetworkPolicy)
+	opts := validation.ValidationOptionsForNetworking(newNP, oldNP)
+	allErrs := validation.ValidateNetworkPolicyUpdate(newNP, oldNP, opts)
+	return rest.ValidateDeclarativelyWithMigrationChecks(ctx, legacyscheme.Scheme, newNP, oldNP, allErrs, operation.Update)
 }
 
 // WarningsOnUpdate returns warnings for the given update.
